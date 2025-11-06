@@ -1,0 +1,131 @@
+{
+  "address": "2ePmXY7aBQYpd7fcBpBkUt5k4cjZ8G2Y86MVJk4S5dne",
+  "metadata": {
+    "name": "todo",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "create_todo_list",
+      "discriminator": [
+        243,
+        146,
+        199,
+        82,
+        117,
+        163,
+        206,
+        135
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "todo_list",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "signer"
+              },
+              {
+                "kind": "arg",
+                "path": "name"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "TodoList",
+      "discriminator": [
+        237,
+        16,
+        56,
+        14,
+        45,
+        138,
+        67,
+        245
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "NameTooLong",
+      "msg": "Name should be less than 50 characters long"
+    }
+  ],
+  "types": [
+    {
+      "name": "ListItem",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "content",
+            "type": "string"
+          },
+          {
+            "name": "checked",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TodoList",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "next_item_id",
+            "type": "u32"
+          },
+          {
+            "name": "completed",
+            "type": "bool"
+          },
+          {
+            "name": "list_items",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "ListItem"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
