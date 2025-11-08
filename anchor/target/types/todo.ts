@@ -14,6 +14,57 @@ export type Todo = {
   },
   "instructions": [
     {
+      "name": "addListItems",
+      "discriminator": [
+        237,
+        135,
+        29,
+        117,
+        29,
+        87,
+        67,
+        149
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "signer": true
+        },
+        {
+          "name": "todoList",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "signer"
+              },
+              {
+                "kind": "arg",
+                "path": "name"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "listItems",
+          "type": {
+            "vec": {
+              "defined": {
+                "name": "listItem"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
       "name": "createTodoList",
       "discriminator": [
         243,
@@ -79,7 +130,12 @@ export type Todo = {
     {
       "code": 6000,
       "name": "nameTooLong",
-      "msg": "Name should be less than 50 characters long"
+      "msg": "Name should be less than 30 characters long"
+    },
+    {
+      "code": 6001,
+      "name": "maxListItemsReached",
+      "msg": "Todo list items should be less than 20"
     }
   ],
   "types": [
@@ -88,6 +144,12 @@ export type Todo = {
       "type": {
         "kind": "struct",
         "fields": [
+          {
+            "name": "id",
+            "type": {
+              "option": "u32"
+            }
+          },
           {
             "name": "content",
             "type": "string"
@@ -119,6 +181,10 @@ export type Todo = {
           {
             "name": "completed",
             "type": "bool"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
           },
           {
             "name": "listItems",

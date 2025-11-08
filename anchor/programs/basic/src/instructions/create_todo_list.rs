@@ -17,9 +17,9 @@ pub fn create_todo_list_handler(ctx: Context<CreateTodoList>, name: String) -> R
     validate_name(&name)?;
 
     let created_at = Clock::get()?.unix_timestamp;
-    let name_lower_case = name.trim().to_lowercase();
+    let bump = ctx.bumps.todo_list;
 
-    let todo_list = TodoList::new(name_lower_case, created_at);
+    let todo_list = TodoList::new(name, created_at, bump);
     ctx.accounts.todo_list.set_inner(todo_list);
 
     Ok(())

@@ -8,13 +8,21 @@ pub mod instructions;
 pub mod state;
 pub mod utils;
 
-use crate::instructions::*;
+use crate::{instructions::*, state::*};
 
 #[program]
 pub mod todo {
-    use super::*;
 
+    use super::*;
     pub fn create_todo_list(ctx: Context<CreateTodoList>, name: String) -> Result<()> {
         create_todo_list_handler(ctx, name)
+    }
+
+    pub fn add_list_items(
+        ctx: Context<AddListItems>,
+        _name: String,
+        list_items: Vec<ListItem>,
+    ) -> Result<()> {
+        add_list_items_handler(ctx, list_items)
     }
 }

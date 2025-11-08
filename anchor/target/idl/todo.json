@@ -8,6 +8,57 @@
   },
   "instructions": [
     {
+      "name": "add_list_items",
+      "discriminator": [
+        237,
+        135,
+        29,
+        117,
+        29,
+        87,
+        67,
+        149
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "signer": true
+        },
+        {
+          "name": "todo_list",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "signer"
+              },
+              {
+                "kind": "arg",
+                "path": "name"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "name": "list_items",
+          "type": {
+            "vec": {
+              "defined": {
+                "name": "ListItem"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
       "name": "create_todo_list",
       "discriminator": [
         243,
@@ -73,7 +124,12 @@
     {
       "code": 6000,
       "name": "NameTooLong",
-      "msg": "Name should be less than 50 characters long"
+      "msg": "Name should be less than 30 characters long"
+    },
+    {
+      "code": 6001,
+      "name": "MaxListItemsReached",
+      "msg": "Todo list items should be less than 20"
     }
   ],
   "types": [
@@ -82,6 +138,12 @@
       "type": {
         "kind": "struct",
         "fields": [
+          {
+            "name": "id",
+            "type": {
+              "option": "u32"
+            }
+          },
           {
             "name": "content",
             "type": "string"
@@ -113,6 +175,10 @@
           {
             "name": "completed",
             "type": "bool"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
           },
           {
             "name": "list_items",
