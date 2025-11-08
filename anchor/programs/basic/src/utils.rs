@@ -16,3 +16,11 @@ pub fn validate_list_items_len(total_len: usize) -> Result<()> {
     );
     Ok(())
 }
+
+pub fn validate_list_item_content(content: &String) -> Result<()> {
+    require!(
+        content.trim().len() <= MAX_LEN_CONTENT,
+        TodoListError::ContentTooLong
+    );
+    Ok(())
+}

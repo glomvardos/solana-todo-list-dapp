@@ -134,6 +134,11 @@ export type Todo = {
     },
     {
       "code": 6001,
+      "name": "contentTooLong",
+      "msg": "Content should be less than 200 characters long"
+    },
+    {
+      "code": 6002,
       "name": "maxListItemsReached",
       "msg": "Todo list items should be less than 20"
     }

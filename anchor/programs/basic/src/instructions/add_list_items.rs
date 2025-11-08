@@ -1,6 +1,9 @@
 use anchor_lang::prelude::*;
 
-use crate::{state::*, utils::validate_list_items_len};
+use crate::{
+    state::*,
+    utils::{validate_list_item_content, validate_list_items_len},
+};
 
 #[derive(Accounts)]
 #[instruction(name:String)]
@@ -29,6 +32,7 @@ pub fn add_list_items_handler(ctx: Context<AddListItems>, list_items: Vec<ListIt
 
     // Solution 2 with for loop
     for item in list_items.iter() {
+        validate_list_item_content(&item.content)?;
         let list_item = ListItem::new(todo_list.next_item_id, item.content.clone(), item.checked);
         todo_list.list_items.push(list_item);
         todo_list.next_item_id += 1;

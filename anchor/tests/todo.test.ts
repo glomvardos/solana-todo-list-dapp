@@ -11,7 +11,7 @@ describe('basic', () => {
   const signer = program.provider.wallet as anchor.Wallet
   let todoListPda: anchor.web3.PublicKey
   beforeAll(async () => {
-    name = 'Test todo list items 6'.toLowerCase()
+    name = 'Test todo list items 7'.toLowerCase()
     const [pda] = anchor.web3.PublicKey.findProgramAddressSync(
       [signer.publicKey.toBuffer(), Buffer.from(name)],
       program.programId,
