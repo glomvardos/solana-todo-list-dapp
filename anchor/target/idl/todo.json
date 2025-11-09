@@ -103,6 +103,57 @@
           "type": "string"
         }
       ]
+    },
+    {
+      "name": "update_list_items",
+      "discriminator": [
+        230,
+        234,
+        169,
+        64,
+        150,
+        232,
+        165,
+        117
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "signer": true
+        },
+        {
+          "name": "todo_list",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "signer"
+              },
+              {
+                "kind": "arg",
+                "path": "name"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "name": "list_items",
+          "type": {
+            "vec": {
+              "defined": {
+                "name": "ListItem"
+              }
+            }
+          }
+        }
+      ]
     }
   ],
   "accounts": [
@@ -135,6 +186,11 @@
       "code": 6002,
       "name": "MaxListItemsReached",
       "msg": "Todo list items should be less than 20"
+    },
+    {
+      "code": 6003,
+      "name": "EmptyListItems",
+      "msg": "List items should not be empty"
     }
   ],
   "types": [

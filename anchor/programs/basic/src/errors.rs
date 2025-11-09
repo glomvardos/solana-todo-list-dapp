@@ -8,4 +8,6 @@ pub enum TodoListError {
     ContentTooLong,
     #[msg("Todo list items should be less than 20")]
     MaxListItemsReached,
+    #[msg("List items should not be empty")]
+    EmptyListItems,
 }

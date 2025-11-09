@@ -25,4 +25,12 @@ pub mod todo {
     ) -> Result<()> {
         add_list_items_handler(ctx, list_items)
     }
+
+    pub fn update_list_items(
+        ctx: Context<UpdateListItems>,
+        _name: String,
+        list_items: Vec<ListItem>,
+    ) -> Result<()> {
+        update_list_items_handler(ctx, list_items)
+    }
 }

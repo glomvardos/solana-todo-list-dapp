@@ -1,4 +1,4 @@
-use crate::{constants::*, errors::*};
+use crate::{constants::*, errors::*, state::ListItem};
 use anchor_lang::prelude::*;
 
 pub fn validate_name(name: &String) -> Result<()> {
@@ -22,5 +22,10 @@ pub fn validate_list_item_content(content: &String) -> Result<()> {
         content.trim().len() <= MAX_LEN_CONTENT,
         TodoListError::ContentTooLong
     );
+    Ok(())
+}
+
+pub fn validate_empty_list_items(list_items: &Vec<ListItem>) -> Result<()> {
+    require!(!list_items.is_empty(), TodoListError::EmptyListItems);
     Ok(())
 }

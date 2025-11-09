@@ -109,6 +109,57 @@ export type Todo = {
           "type": "string"
         }
       ]
+    },
+    {
+      "name": "updateListItems",
+      "discriminator": [
+        230,
+        234,
+        169,
+        64,
+        150,
+        232,
+        165,
+        117
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "signer": true
+        },
+        {
+          "name": "todoList",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "signer"
+              },
+              {
+                "kind": "arg",
+                "path": "name"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "listItems",
+          "type": {
+            "vec": {
+              "defined": {
+                "name": "listItem"
+              }
+            }
+          }
+        }
+      ]
     }
   ],
   "accounts": [
@@ -141,6 +192,11 @@ export type Todo = {
       "code": 6002,
       "name": "maxListItemsReached",
       "msg": "Todo list items should be less than 20"
+    },
+    {
+      "code": 6003,
+      "name": "emptyListItems",
+      "msg": "List items should not be empty"
     }
   ],
   "types": [
