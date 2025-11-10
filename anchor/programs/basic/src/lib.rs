@@ -33,4 +33,12 @@ pub mod todo {
     ) -> Result<()> {
         update_list_items_handler(ctx, list_items)
     }
+
+    pub fn delete_list_items(
+        ctx: Context<DeleteListItems>,
+        _name: String,
+        list_items_ids: Vec<u32>,
+    ) -> Result<()> {
+        delete_list_items_handler(ctx, list_items_ids)
+    }
 }

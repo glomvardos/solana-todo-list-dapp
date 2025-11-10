@@ -105,6 +105,53 @@
       ]
     },
     {
+      "name": "delete_list_items",
+      "discriminator": [
+        147,
+        226,
+        65,
+        14,
+        239,
+        244,
+        249,
+        60
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "signer": true
+        },
+        {
+          "name": "todo_list",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "signer"
+              },
+              {
+                "kind": "arg",
+                "path": "name"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "name": "list_items_ids",
+          "type": {
+            "vec": "u32"
+          }
+        }
+      ]
+    },
+    {
       "name": "update_list_items",
       "discriminator": [
         230,

@@ -26,27 +26,34 @@ describe('basic', () => {
   //   console.log(`https://explorer.solana.com/tx/${tx}?cluster=custom&customUrl=http://localhost:8899`)
   // })
 
-  it('Add items to todo list', async () => {
-    const tx = await program.methods
-      .addListItems(name, [
-        { id: null, content: 'Item 1', checked: false },
-        { id: null, content: 'Item 2', checked: false },
-      ])
-      .rpc()
-    const account = await program.account.todoList.fetch(todoListPda)
-    console.log('Account', account)
-    console.log(`https://explorer.solana.com/tx/${tx}?cluster=custom&customUrl=http://localhost:8899`)
-  })
-
-  // it('Update items in todo list', async () => {
+  // it('Add items to todo list', async () => {
   //   const tx = await program.methods
-  //     .updateListItems(name, [
-  //       // { id: 0, content: 'Item 1', checked: true },
-  //       { id: 1, content: 'Item new', checked: true },
+  //     .addListItems(name, [
+  //       { id: null, content: 'Item 1', checked: false },
+  //       { id: null, content: 'Item 2', checked: false },
   //     ])
   //     .rpc()
   //   const account = await program.account.todoList.fetch(todoListPda)
   //   console.log('Account', account)
   //   console.log(`https://explorer.solana.com/tx/${tx}?cluster=custom&customUrl=http://localhost:8899`)
   // })
+
+  // it('Update items in todo list', async () => {
+  //   const tx = await program.methods
+  //     .updateListItems(name, [
+  //       { id: 4, content: 'Item 1', checked: true },
+  //       { id: 5, content: 'Item new', checked: true },
+  //     ])
+  //     .rpc()
+  //   const account = await program.account.todoList.fetch(todoListPda)
+  //   console.log('Account', account)
+  //   console.log(`https://explorer.solana.com/tx/${tx}?cluster=custom&customUrl=http://localhost:8899`)
+  // })
+
+  it('Delete items from todo list', async () => {
+    const tx = await program.methods.deleteListItems(name, [4, 5]).rpc()
+    const account = await program.account.todoList.fetch(todoListPda)
+    console.log('Account', account)
+    console.log(`https://explorer.solana.com/tx/${tx}?cluster=custom&customUrl=http://localhost:8899`)
+  })
 })

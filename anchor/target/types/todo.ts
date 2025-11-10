@@ -111,6 +111,53 @@ export type Todo = {
       ]
     },
     {
+      "name": "deleteListItems",
+      "discriminator": [
+        147,
+        226,
+        65,
+        14,
+        239,
+        244,
+        249,
+        60
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "signer": true
+        },
+        {
+          "name": "todoList",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "signer"
+              },
+              {
+                "kind": "arg",
+                "path": "name"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "listItemsIds",
+          "type": {
+            "vec": "u32"
+          }
+        }
+      ]
+    },
+    {
       "name": "updateListItems",
       "discriminator": [
         230,

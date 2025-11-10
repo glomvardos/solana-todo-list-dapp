@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 use crate::constants::*;
 use anchor_lang::prelude::*;
 
@@ -56,12 +58,14 @@ impl TodoList {
         }
     }
 
-    pub fn delete_list_items(self: &mut Self, list_items: &Vec<ListItem>) {
-        todo!()
+    pub fn delete_list_items(self: &mut Self, list_items_ids: &Vec<u32>) {
+        let ids_to_delete = list_items_ids.iter().collect::<HashSet<&u32>>();
+        self.list_items
+            .retain(|li| li.id.map_or(true, |id| !ids_to_delete.contains(&id)));
     }
 
     pub fn complete(self: &mut Self) {
-        self.completed = self.list_items.iter().all(|li| li.checked);
+        self.completed = !self.list_items.is_empty() && self.list_items.iter().all(|li| li.checked);
     }
 }
 
