@@ -41,4 +41,8 @@ pub mod todo {
     ) -> Result<()> {
         delete_list_items_handler(ctx, list_items_ids)
     }
+
+    pub fn delete_todo_list(_ctx: Context<DeleteTodoList>, _name: String) -> Result<()> {
+        delete_todo_list_handler()
+    }
 }
