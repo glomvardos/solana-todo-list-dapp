@@ -4,14 +4,12 @@ import { useCluster } from '@/components/cluster/cluster-data-access'
 import { useAnchorProvider } from '@/components/solana/solana-provider'
 import { useTransactionToast } from '@/components/use-transaction-toast'
 import { parseError } from '@/lib/parse-error'
-import { AnchorError } from '@coral-xyz/anchor'
+import { ListItem } from '@/lib/types'
 import { getTodoProgram, getTodoProgramId } from '@project/anchor'
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { Cluster, SendTransactionError } from '@solana/web3.js'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useMemo } from 'react'
-
-import { toast } from 'sonner'
 
 export function useTodoProgram() {
   const { connection } = useConnection()
@@ -36,12 +34,32 @@ export function useTodoProgram() {
 
   const createTodoList = useMutation({
     mutationKey: ['todo', 'create', { cluster }],
-    mutationFn: async ({ name }: { name: string }) => program.methods.createTodoList(name).rpc(),
+    mutationFn: ({ name }: { name: string }) => program.methods.createTodoList(name).rpc(),
     onSuccess: (signature) => {
       transactionToast(signature)
       invalidateAccounts()
     },
+    onError: parseError,
+  })
 
+  const addTodoListItems = useMutation({
+    mutationKey: ['todo', 'addListItems', { cluster }],
+    mutationFn: ({ name, listItems }: { name: string; listItems: ListItem[] }) =>
+      program.methods.addListItems(name, listItems).rpc(),
+    onSuccess: (signature) => {
+      transactionToast(signature)
+      invalidateAccounts()
+    },
+    onError: parseError,
+  })
+
+  const deleteTodoList = useMutation({
+    mutationKey: ['todo', 'delete', { cluster }],
+    mutationFn: ({ name }: { name: string }) => program.methods.deleteTodoList(name).rpc(),
+    onSuccess: (signature) => {
+      transactionToast(signature)
+      invalidateAccounts()
+    },
     onError: parseError,
   })
 
@@ -50,5 +68,7 @@ export function useTodoProgram() {
     programId,
     getProgramAccount,
     createTodoList,
+    addTodoListItems,
+    deleteTodoList,
   }
 }

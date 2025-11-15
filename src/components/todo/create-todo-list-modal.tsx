@@ -8,7 +8,7 @@ export function CreateTodoListModal() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const isNameEmpty = name.trim().length === 0
   const { createTodoList } = useTodoProgram()
-  const { mutate, isPending } = createTodoList
+  const { mutate, isPending, reset } = createTodoList
   const onSaveHandler = () => {
     if (isNameEmpty) return
     mutate(
@@ -17,6 +17,9 @@ export function CreateTodoListModal() {
         onSuccess: () => {
           setName('')
           setIsOpen(false)
+        },
+        onSettled: () => {
+          reset()
         },
       },
     )
@@ -29,7 +32,7 @@ export function CreateTodoListModal() {
     setName('')
   }
 
-  const submitLabel = isPending ? 'Saving...' : 'Save'
+  const submitLabel = isPending ? 'Signing...' : 'Save'
   return (
     <AppModal
       open={isOpen}

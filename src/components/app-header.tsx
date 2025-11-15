@@ -6,16 +6,17 @@ import { ThemeSelect } from '@/components/theme-select'
 import { ClusterUiSelect } from './cluster/cluster-ui'
 import { WalletButton } from '@/components/solana/solana-provider'
 import { CreateTodoListModal } from './todo/create-todo-list-modal'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 export function AppHeader() {
   const [showMenu, setShowMenu] = useState(false)
-
+  const { publicKey } = useWallet()
   return (
     <header className="relative z-50 px-4 py-2 bg-neutral-100 dark:bg-neutral-900 dark:text-neutral-400">
       <div className="mx-auto flex justify-between items-center">
         <div className="flex items-baseline gap-4">
           <p className="text-xl hover:text-neutral-500 dark:hover:text-white">Todo Lists</p>
-          <CreateTodoListModal />
+          {publicKey && <CreateTodoListModal />}
         </div>
 
         <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setShowMenu(!showMenu)}>
