@@ -6,6 +6,7 @@ use anchor_lang::prelude::*;
 #[account]
 #[derive(InitSpace)]
 pub struct TodoList {
+    owner: Pubkey,
     #[max_len(MAX_LEN_NAME)]
     pub name: String,
     pub created_at: i64,
@@ -25,8 +26,9 @@ pub struct ListItem {
 }
 
 impl TodoList {
-    pub fn new(name: String, created_at: i64, bump: u8) -> Self {
+    pub fn new(owner: Pubkey, name: String, created_at: i64, bump: u8) -> Self {
         Self {
+            owner,
             name,
             created_at,
             next_item_id: 0,

@@ -15,11 +15,11 @@ pub struct CreateTodoList<'info> {
 
 pub fn create_todo_list_handler(ctx: Context<CreateTodoList>, name: String) -> Result<()> {
     validate_name(&name)?;
-
+    let owner = ctx.accounts.signer.key();
     let created_at = Clock::get()?.unix_timestamp;
     let bump = ctx.bumps.todo_list;
 
-    let todo_list = TodoList::new(name, created_at, bump);
+    let todo_list = TodoList::new(owner, name, created_at, bump);
     ctx.accounts.todo_list.set_inner(todo_list);
 
     Ok(())

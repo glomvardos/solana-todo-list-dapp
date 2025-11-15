@@ -152,6 +152,48 @@
       ]
     },
     {
+      "name": "delete_todo_list",
+      "discriminator": [
+        219,
+        147,
+        161,
+        14,
+        111,
+        161,
+        197,
+        203
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "todo_list",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "signer"
+              },
+              {
+                "kind": "arg",
+                "path": "name"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "_name",
+          "type": "string"
+        }
+      ]
+    },
+    {
       "name": "update_list_items",
       "discriminator": [
         230,
@@ -268,6 +310,10 @@
       "type": {
         "kind": "struct",
         "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
           {
             "name": "name",
             "type": "string"

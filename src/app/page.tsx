@@ -1,5 +1,5 @@
-import { DashboardFeature } from '@/components/dashboard/dashboard-feature'
+import TodoListsLoader from '@/components/todo/todo-lists-loader'
 
 export default function Home() {
-  return <DashboardFeature />
+  return <TodoListsLoader />
 }

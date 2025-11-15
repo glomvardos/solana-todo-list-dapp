@@ -6,17 +6,23 @@ export function AppModal({
   children,
   title,
   submit,
+  cancel,
   submitDisabled,
   submitLabel,
+  open,
+  onOpenChange,
 }: {
   children: ReactNode
   title: string
   submit?: () => void
+  cancel?: () => void
   submitDisabled?: boolean
   submitLabel?: string
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }) {
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
         <Button variant="outline">{title}</Button>
       </DialogTrigger>
@@ -31,6 +37,11 @@ export function AppModal({
               {submitLabel || 'Save'}
             </Button>
           ) : null}
+          <DialogTrigger asChild>
+            <Button onClick={cancel} variant="outline">
+              Cancel
+            </Button>
+          </DialogTrigger>
         </DialogFooter>
       </DialogContent>
     </Dialog>

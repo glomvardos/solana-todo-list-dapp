@@ -158,6 +158,48 @@ export type Todo = {
       ]
     },
     {
+      "name": "deleteTodoList",
+      "discriminator": [
+        219,
+        147,
+        161,
+        14,
+        111,
+        161,
+        197,
+        203
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "todoList",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "signer"
+              },
+              {
+                "kind": "arg",
+                "path": "name"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    },
+    {
       "name": "updateListItems",
       "discriminator": [
         230,
@@ -274,6 +316,10 @@ export type Todo = {
       "type": {
         "kind": "struct",
         "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
           {
             "name": "name",
             "type": "string"
