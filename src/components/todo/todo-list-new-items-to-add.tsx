@@ -109,7 +109,7 @@ export function TodoListNewItemsToAdd({ name, existingListItemsCount, showAddNew
           Remove items
         </Button>
         <Button className="w-[calc(50%-8px)]" disabled={!canSave} onClick={onSaveNewListItems}>
-          {isPending ? 'Signing...' : 'Save Items'}
+          {isPending ? 'Signing...' : 'Add Items'}
         </Button>
       </div>
     </div>

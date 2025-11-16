@@ -53,6 +53,17 @@ export function useTodoProgram() {
     onError: parseError,
   })
 
+  const updateTodoListItems = useMutation({
+    mutationKey: ['todo', 'updateListItems', { cluster }],
+    mutationFn: ({ name, listItems }: { name: string; listItems: ListItem[] }) =>
+      program.methods.updateListItems(name, listItems).rpc(),
+    onSuccess: (signature) => {
+      transactionToast(signature)
+      invalidateAccounts()
+    },
+    onError: parseError,
+  })
+
   const deleteTodoList = useMutation({
     mutationKey: ['todo', 'delete', { cluster }],
     mutationFn: ({ name }: { name: string }) => program.methods.deleteTodoList(name).rpc(),
@@ -69,6 +80,7 @@ export function useTodoProgram() {
     getProgramAccount,
     createTodoList,
     addTodoListItems,
+    updateTodoListItems,
     deleteTodoList,
   }
 }

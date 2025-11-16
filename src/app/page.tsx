@@ -5,9 +5,9 @@ export default function Home() {
 }
 
 // TODO: Delete already saved list item
-
-// TODO: Show saved list items
+// TODO: Sort Todo list by created date desc
 // TODO: Delete saved list items
-// TODO: Mark Todo list item as completed
+// TODO: expand/minimize todo list
+// TODO: show checkmark if all list is completed
 
 // TODO: Add zod to parse and show errors
