@@ -1,14 +1,20 @@
 import { useStateAccounts } from '@/services/use-state-accounts'
 import { TodoList } from './todo-list'
 import { CreateTodoListModal } from './create-todo-list-modal'
+import { useMemo } from 'react'
 
 export function TodoLists() {
   const { data: stateAccounts } = useStateAccounts()
-  console.log(stateAccounts)
+
   const stateAccountsEmpty = stateAccounts?.length === 0
+  const sortedStateAccounts = useMemo(
+    () => stateAccounts?.toSorted((a, b) => b.account.createdAt.toNumber() - a.account.createdAt.toNumber()),
+    [stateAccounts],
+  )
+
   return !stateAccountsEmpty ? (
     <div className="grid gap-5 grid-cols-[repeat(auto-fill,minmax(350px,1fr))]">
-      {stateAccounts?.map((sa) => (
+      {sortedStateAccounts?.map((sa) => (
         <TodoList
           key={sa.account.name}
           todoList={{

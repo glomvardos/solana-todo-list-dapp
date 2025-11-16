@@ -6,7 +6,7 @@ export function parseError(error: Error) {
   if (error instanceof SendTransactionError) {
     const logs = error.logs
     if (logs?.some((log: string) => log.includes('already in use'))) {
-      toast.error('Account already exists')
+      toast.error('A todo list with this name already exists')
       return
     }
     toast.error('Failed to run program')

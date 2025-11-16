@@ -1,6 +1,6 @@
 import { type TodoList } from '@/lib/types'
 import { Card } from '../ui/card'
-import { ListPlus } from 'lucide-react'
+import { CheckCircle2, ListPlus } from 'lucide-react'
 import { Button } from '../ui/button'
 import { DeleteTodoListModal } from './delete-todo-list-modal'
 import { Activity, ReactElement, useEffect, useState } from 'react'
@@ -25,7 +25,10 @@ export function TodoList({ todoList }: Props) {
           showAddNewItemsHandler={showAddNewItemsHandler}
           showAddNewItems={showAddNewItems}
         />
-        <h2 className="line-clamp-1 font-medium text-lg">{todoList.name}</h2>
+        <div className="flex items-center gap-1.5">
+          <h2 className="line-clamp-1 font-medium text-lg">{todoList.name}</h2>
+          {todoList.completed && <CheckCircle2 size={17} className="text-green-500" />}
+        </div>
       </div>
       <div className="flex flex-col gap-4">
         <TodoListItems name={todoList.name} listItems={todoList.listItems} />
